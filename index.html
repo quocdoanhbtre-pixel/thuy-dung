@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Món quà bí mật ngày 20/10</title>
+    <!-- Nhúng phông chữ nghệ thuật từ Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            margin: 0; padding: 0; 
+            background: linear-gradient(135deg, #1a0b1c 0%, #4a154b 100%);
+            min-height: 100vh; display: flex; justify-content: center; align-items: center;
+            font-family: 'Quicksand', sans-serif; overflow-x: hidden; color: white;
+        }
+
+        /* --- MÀN HÌNH CHỜ (NÚT MỞ QUÀ) --- */
+        #intro-screen {
+            position: fixed; top: 0; left: 0; z-index: 100;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            width: 100%; height: 100%; background: rgba(0, 0, 0, 0.85);
+            transition: opacity 1s ease-out;
+        }
+        .open-btn {
+            background: linear-gradient(45deg, #ff758c 0%, #ff7eb3 100%);
+            border: none; padding: 15px 40px; border-radius: 30px;
+            color: white; font-size: 20px; font-weight: bold; cursor: pointer;
+            box-shadow: 0 0 20px rgba(255, 117, 140, 0.6);
+            animation: pulse 1.5s infinite; transition: transform 0.3s;
+        }
+        .open-btn:hover { transform: scale(1.1); }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 10px #ff758c; }
+            50% { box-shadow: 0 0 30px #ff758c, 0 0 50px #ff7eb3; }
+            100% { box-shadow: 0 0 10px #ff758c; }
+        }
+
+        /* --- THIỆP CHÍNH --- */
+        #main-card {
+            opacity: 0; transform: scale(0.8);
+            transition: all 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.2);
+            padding: 30px; border-radius: 20px; text-align: center;
+            max-width: 450px; width: 90%; z-index: 10;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            margin: 20px auto;
+        }
+        
+        .title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 40px; margin-bottom: 15px; margin-top: 5px;
+            background: linear-gradient(to right, #ffb347, #ff7eb3);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            text-shadow: 0px 5px 15px rgba(255, 126, 179, 0.3);
+        }
+
+        /* KHU VỰC HÌNH ẢNH NÂNG CẤP */
+        .image-container {
+    width: 100%;
+    max-width: 300px; /* Giới hạn chiều rộng để ảnh gọn gàng hơn */
+    height: 250px;
+    overflow: hidden;
+    border-radius: 15px;
+    margin: 0 auto 20px auto; /* LỆNH QUAN TRỌNG: margin auto giúp căn giữa tuyệt đối */
+    box-shadow: 0 8px 25px rgba(255, 126, 179, 0.3);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 1s ease-out 0.5s;
+    
+    /* Hỗ trợ thêm Flexbox để chắc chắn ảnh ở giữa */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center; /* Giữ tâm bức ảnh không bị lệch */
+}
+
+        .message-box {
+            font-size: 16px; line-height: 1.7; min-height: 120px; text-align: left;
+            background: rgba(0,0,0,0.2); padding: 15px; border-radius: 10px;
+        }
+
+        .cursor { display: inline-block; width: 2px; height: 16px; background: white; animation: blink 0.7s infinite; }
+        @keyframes blink { 50% { opacity: 0; } }
+
+        /* Hiệu ứng trái tim rơi */
+        .heart {
+            position: fixed; top: -10vh; font-size: 24px; color: #ff7eb3;
+            animation: fall linear forwards; z-index: 1; opacity: 0.7;
+            pointer-events: none;
+        }
+        @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
+    </style>
+</head>
+<body>
+
+    <!-- Link nhạc nền mp3 (Bạn có thể thay đổi bằng file nhạc khác) -->
+    <audio id="bg-music" loop>
+        <source src="nhacnen.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Màn hình chờ -->
+    <div id="intro-screen">
+        <button class="open-btn" onclick="openGift()">💌 Nhấn để mở quà</button>
+    </div>
+
+    <!-- Thiệp xuất hiện sau khi mở -->
+    <div id="main-card">
+        <h1 class="title">Happy Women's Day! 🌸</h1>
+        
+        <!-- HÌNH ẢNH CỦA BẠN: Thay 'anh-gia-dinh.jpg' bằng tên file ảnh bạn để chung thư mục -->
+        <div class="image-container" id="gift-image">
+            <img src="thuydung.jpg" alt="Ảnh kỷ niệm 20/10" onerror="this.src='https://images.unsplash.com/photo-1542044896530-05d85be9b11a?auto=format&fit=crop&w=600&q=80'">
+        </div>
+
+        <div class="message-box">
+            <span id="text-typing"></span><span class="cursor"></span>
+        </div>
+    </div>
+
+    <script>
+        // Nội dung lời chúc (Bạn có thể sửa lại theo ý thích)
+        const message = "Nhân ngày 20/10, Quốc Doanh chúc Thùy Dung một ngày rạng rỡ và ngập tràn hạnh phúc. Mọi việc cũng đều gặp may mắn, ước gì được đó, nghĩ gì có đó, vạn sự thành công. Chúc Thùy Dung luôn cười tươi và có một ngày thật ý nghĩa! 💖✨";    
+        let index = 0;
+        function openGift() {
+            // 1. Phát nhạc
+            document.getElementById("bg-music").play().catch(e => console.log("Chờ tương tác phát nhạc"));
+            
+            // 2. Ẩn màn hình chờ
+            const intro = document.getElementById("intro-screen");
+            intro.style.opacity = "0";
+            setTimeout(() => { intro.style.display = "none"; }, 1000);
+            
+            // 3. Hiện thiệp
+            const card = document.getElementById("main-card");
+            card.style.opacity = "1";
+            card.style.transform = "scale(1)";
+            
+            // 4. Hiện hình ảnh với hiệu ứng trượt lên
+            const imgContainer = document.getElementById("gift-image");
+            imgContainer.style.opacity = "1";
+            imgContainer.style.transform = "translateY(0)";
+            
+            // 5. Bắt đầu gõ chữ sau khi ảnh đã hiện (khoảng 1.2 giây)
+            setTimeout(typeText, 1200);
+            
+            // 6. Thả trái tim bay lãng mạn
+            setInterval(createHeart, 300);
+        }
+
+        // Hàm tạo hiệu ứng chữ gõ từng chữ
+        function typeText() {
+            if (index < message.length) {
+                document.getElementById("text-typing").innerHTML += message.charAt(index);
+                index++;
+                setTimeout(typeText, 45); // Tốc độ gõ chữ (45ms)
+            }
+        }
+
+        // Hàm tạo trái tim rơi tự nhiên khắp màn hình
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.innerHTML = '❤️';
+            heart.classList.add('heart');
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 3 + 4 + 's';
+            heart.style.fontSize = Math.random() * 15 + 15 + 'px';
+            document.body.appendChild(heart);
+            setTimeout(() => { heart.remove(); }, 7000);
+        }
+    </script>
+</body>
+</html>
